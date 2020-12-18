@@ -38,9 +38,9 @@ public class decompression {
                     output += s;
                     tem--;
                 }
-            }
 
             System.out.println(output);
+            }
         }
         sc.close();
     }
