@@ -5,53 +5,70 @@ public class bigInteger {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-        String[] str = new String[3];
+        int[] a;
+        int[] b;
+        int[] ans;
         String output = "";
-        String a = sc.next();       //for get the enter
 
         for(int i = 0; i < n; i++){
-            str = sc.nextLine().split(" ");
+            
+            String[] temp = sc.next().split("");
+            a = stringToInt(temp);
 
-            int num = 29;
-            int num1 = str[0].length() - 1;
-            int num2 = str[2].length() - 1;
+            char symbol = sc.next().charAt(0);
 
-            char[] word = new char[30];
-            char[] word1 = str[0].toCharArray();
-            char[] word2 = str[2].toCharArray();
-
-            while(num1 == -1 || num2 == -1){
-                word[num] += (char) (word1[num1] + word2[num2] - '0');
-                if(word[num] > '9'){
-                    word[num-1]++;
-                    word[num] -= '9' - 1;
-                }
-                num--;
-                num1--;
-                num2--;
+            temp = sc.next().split("");
+            b = stringToInt(temp);
+            
+            if(symbol == '+'){
+                ans = add(a, b);
+            }
+            else if(symbol == '-'){
+                ans = minus(a, b);
             }
 
-            while(num1 == -1 && num2 >= 0){
-                word[num] += word2[num2];
-                num2--;
+            for(int j = 0; j < ans.length; j++){
+                output += ans[i];
             }
 
-            while(num2 == -1 && num1 >= 0){
-                word[num] += word1[num1];
-                num1--;
-            }
-
-            int j = 0;
-            while(word[j] == '0'){
-                j++;
-            }
-
-            for( ; j < 30; j++){
-                output += word[j];
-            }
             output += "\n";
         }
 
         System.out.print(output);
+    }
+
+    static int[] stringToInt(String[] a){
+        int[] val = new int[a.length];
+        for(int i = 0; i < a.length; i++){
+            val[i] = Integer.parseInt(a[i]);
+        }
+        return val;
+    }
+
+    static int add(int[] a, int[] b){ 
+        int ans[];
+        int carry = 0;
+        for(int i = 0; i < 30; i++){
+            ans[i] = a[i] + b[i] + carry;
+            carry = ans[i] / 10;
+            ans[i] %= 10;
+        }
+        return ans;
+    }
+
+    static int[] minus(int[] a, int[] b){
+        int[] ans;
+        int borrow = 0;
+        for(int i = 0; i < 30; i++){
+            ans[i] = a[i] - b[i] - borrow;
+            if(ans[i] < 0){
+                borrow = 1;
+                ans[i] += 10;
+            }
+            else{
+                borrow = 0;
+            }
+        }
+        return ans;
     }
 }
