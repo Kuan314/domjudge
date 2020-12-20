@@ -7,7 +7,7 @@ public class bigInteger {
         int n = sc.nextInt();
         int[] a;
         int[] b;
-        int[] ans;
+        int[] ans = new int[30];
         String output = "";
 
         for(int i = 0; i < n; i++){
@@ -45,8 +45,8 @@ public class bigInteger {
         return val;
     }
 
-    static int add(int[] a, int[] b){ 
-        int ans[];
+    static int[] add(int[] a, int[] b){ 
+        int ans[] = new int[30];
         int carry = 0;
         for(int i = 0; i < 30; i++){
             ans[i] = a[i] + b[i] + carry;
@@ -57,7 +57,7 @@ public class bigInteger {
     }
 
     static int[] minus(int[] a, int[] b){
-        int[] ans;
+        int[] ans = new int[30];
         int borrow = 0;
         for(int i = 0; i < 30; i++){
             ans[i] = a[i] - b[i] - borrow;
