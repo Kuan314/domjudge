@@ -19,16 +19,23 @@ public class bigInteger {
 
             temp = sc.next().split("");
             b = stringToInt(temp);
-            
+
             if(symbol == '+'){
                 ans = add(a, b);
+                for(int j = ans.length - 1; j >= 0; j--){
+                    output += ans[j];
+                }
             }
             else if(symbol == '-'){
                 ans = minus(a, b);
-            }
 
-            for(int j = 0; j < ans.length; j++){
-                output += ans[i];
+                int j = ans.length - 1;
+                while(ans[j] == 0){
+                    j--;
+                }
+                for(; j >= 0; j--){
+                    output += ans[j];
+                }
             }
 
             output += "\n";
@@ -47,27 +54,68 @@ public class bigInteger {
 
     static int[] add(int[] a, int[] b){ 
         int ans[] = new int[30];
+        int count = 0;
         int carry = 0;
-        for(int i = 0; i < 30; i++){
-            ans[i] = a[i] + b[i] + carry;
-            carry = ans[i] / 10;
-            ans[i] %= 10;
+        int i = a.length - 1;
+        int j = b.length - 1;
+        while(i >= 0 && j >= 0){
+            ans[count] = a[i] + b[j] + carry;
+            if(ans[count] >= 10){
+                ans[count] -= 10;
+                carry = 1;
+            }
+            else{
+                carry = 0;
+            }
+            i--;
+            j--;
+            count++;
+        }
+
+        while(i >= 0){
+            ans[count] = a[i];
+            count++;
+            i--;
+        }
+
+        while (j >= 0){
+            ans[count] = b[j];
+            count++;
+            j--;
         }
         return ans;
     }
 
-    static int[] minus(int[] a, int[] b){
-        int[] ans = new int[30];
+    static int[] minus(int[] a, int[] b){ 
+        int ans[] = new int[30];
+        int count = 0;
         int borrow = 0;
-        for(int i = 0; i < 30; i++){
-            ans[i] = a[i] - b[i] - borrow;
-            if(ans[i] < 0){
-                borrow = 1;
-                ans[i] += 10;
+        int i = a.length - 1;
+        int j = b.length - 1;
+        while(i >= 0 && j >= 0){
+            ans[count] = a[i] - b[j] + borrow;
+            if(ans[count] < 0){
+                ans[count] += 10;
+                borrow = -1;
             }
             else{
                 borrow = 0;
             }
+            i--;
+            j--;
+            count++;
+        }
+
+        while(i >= 0){
+            ans[count] = a[i];
+            count++;
+            i--;
+        }
+
+        while (j >= 0){
+            ans[count] = b[j];
+            count++;
+            j--;
         }
         return ans;
     }
