@@ -32,6 +32,10 @@ public class bigInteger {
                 int j = ans.length - 1;
                 while(ans[j] == 0){
                     j--;
+                    if(j < 0){
+                        j = 0;
+                        break;
+                    }
                 }
                 for(; j >= 0; j--){
                     output += ans[j];
